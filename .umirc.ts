@@ -20,6 +20,11 @@ export default defineConfig({
       component: './Home',
     },
     {
+      name: 'Upload',
+      path: '/upload',
+      component: './Upload',
+    },
+    {
       name: 'User',
       path: '/user',
       menu: false,
