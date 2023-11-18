@@ -2,6 +2,7 @@ import { EyeOutlined, InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { Button, Image, Space, Upload, message } from 'antd';
 import { useState } from 'react';
+import styles from './index.less';
 
 const { Dragger } = Upload;
 
@@ -38,14 +39,26 @@ export default function UploadPage() {
   );
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 100,
-        overflow: 'hidden',
-      }}
-    >
+    <div className={styles.uploadContainer}>
+      <Space size={50} align="center" wrap>
+        {images &&
+          images.map((image) => (
+            <Image
+              key={image}
+              width={200}
+              src={image}
+              preview={{ mask: <MaskPreviewContent /> }}
+              className={styles.image}
+            />
+          ))}
+      </Space>
+
+      {images.length > 0 && (
+        <Button type="primary" shape="round">
+          Generate Links
+        </Button>
+      )}
+
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
@@ -58,25 +71,6 @@ export default function UploadPage() {
           uploading company data or other banned files.
         </p>
       </Dragger>
-
-      <Space size={50} style={{ zIndex: 1 }}>
-        {images &&
-          images.map((image) => (
-            <Image
-              key={image}
-              width={200}
-              style={{ borderRadius: 5 }}
-              src={image}
-              preview={{ mask: <MaskPreviewContent /> }}
-            />
-          ))}
-      </Space>
-
-      {images.length > 0 && (
-        <Button type="primary" shape="round">
-          Generate Links
-        </Button>
-      )}
     </div>
   );
 }
